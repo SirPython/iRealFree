@@ -1,0 +1,26 @@
+{
+  "name": "irealfree",
+  "version": "1.0.0",
+  "description": "Because iRealPro costs money and I'm a tightwad.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -c --recursive 'lib/*.spec.js'",
+    "build": "babel src -d lib && browserify lib/index.js -o web/index.js",
+    "run": "npm build && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SirPython/iRealFree.git"
+  },
+  "author": "SirPython",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SirPython/iRealFree/issues"
+  },
+  "homepage": "https://github.com/SirPython/iRealFree#readme",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "browserify": "^13.1.0",
+    "mocha": "^2.5.3"
+  }
+}
