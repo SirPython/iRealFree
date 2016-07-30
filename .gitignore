@@ -1,3 +1,7 @@
+# Project-specific ignores
+
+lib/ # compiled JS
+web/ # browserified JS
 
 # Created by https://www.gitignore.io/api/node
 
