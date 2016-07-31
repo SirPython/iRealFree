@@ -9,5 +9,7 @@ describe("index", function() {
         it("should not output 'eggs' + whatever is passed in.", function() {
             assert.notEqual(foo("spam"), "eggs spam");
         });
-    })
-})
+    });
+});
+
+// Note: you may not need to test your main index.js file.

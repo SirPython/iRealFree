@@ -4,7 +4,7 @@
   "description": "Because iRealPro costs money and I'm a tightwad.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha src/*.spec.js -c --recursive --compilers js:babel-register",
+    "test": "mocha src -c --recursive --compilers js:babel-register",
     "build": "babel src -d lib --ignore *.spec.js && browserify lib/index.js -o web/index.js",
     "clean": "rm -rf web/* && rm -rf lib/*"
   },
