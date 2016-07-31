@@ -1,5 +1,5 @@
 let foo = (bar) => {
     return `spam ${bar}`;
-}
+};
 
-console.log(foo("eggs"));
+export default foo;
