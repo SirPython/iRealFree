@@ -47,3 +47,5 @@ class Leadsheet {
 
 Leadsheet.Metadata = Metadata;
 Leadsheet.Measure  = Measure;
+
+export default Leadsheet;

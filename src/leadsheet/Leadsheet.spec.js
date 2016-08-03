@@ -45,7 +45,7 @@ describe("Leadsheet", function() {
     });
     describe("#save()", function() {
         it("should store leadsheet metadata and chords in local storage", function() {
-
+            assert(false); // TODO
         });
     });
 });
