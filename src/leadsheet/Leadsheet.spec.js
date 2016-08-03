@@ -6,7 +6,7 @@ describe("Leadsheet", function() {
     var giantSteps = null;
 
     before(function() {
-        giantSteps = Leadsheet.parse("giant_steps,john_coltrane,swing,280|Bmaj7,D7|Gmaj7,Bb7|Ebmaj7|A-7,D7|Gmaj7,Bb7|Ebmaj7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|A-7,D7|Gmaj7|C#-7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|C#-7,F#7");
+        giantSteps = Leadsheet.parse("giant_steps,john_coltrane,swing,280:Bmaj7,D7|Gmaj7,Bb7|Ebmaj7|A-7,D7|Gmaj7,Bb7|Ebmaj7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|A-7,D7|Gmaj7|C#-7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|C#-7,F#7");
     });
 
     describe("static #parse()", function() {

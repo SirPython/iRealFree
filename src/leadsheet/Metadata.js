@@ -14,6 +14,7 @@ export default class Metadata {
         this.title = title;
         this.composer = composer;
         this.feel = feel;
-        this.feel = parseInt(bpm, 10);
+        this.bpm = parseInt(bpm, 10); // TODO Does this follow SRP? Should parser
+                                      // do this?
     }
 }

@@ -26,12 +26,23 @@ class Leadsheet {
      *
      * Example:
      *
-     *     "foo","bar","swing",120|C7|F7|C7|C7,F#o7
+     *     "foo","bar","swing",120:C7|F7|C7|C7,F#o7
      *
-     * @returns {Leadsheet} The parsed leadsheet chart.
+     * @returns {Leadsheet} chart The parsed leadsheet chart.
      */
     static parse(chart) {
-        return new Leadsheet(new Leadsheet.Metadata(), [new Leadsheet.Measure()]);
+        var metadata = null, measures = null;
+        [metadata, measures] = chart.split(":");
+
+        /* Parse the metadata. */
+        metadata = new Leadsheet.Metadata(...metadata.split(","));
+
+        /* Parse the measures */
+        measures.split("|").map(
+            measure => new Leadsheet.Measure(...measure.split(",")) // TODO Parse using teoria before passing... or change up responsibilites
+        );
+
+        return new Leadsheet(metadata, [new Leadsheet.Measure()]);
     }
 
     /**

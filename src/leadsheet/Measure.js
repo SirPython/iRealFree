@@ -10,6 +10,7 @@ export default class Measure {
      * TODO: Allow for chords to be empty, and it borrows from the last measure.
      */
     constructor(chords) {
-        this.chords = chords;
+        this.chords = chords; // TODO Should this take chord symbols and parse
+                              // it's own? No; that's parser's job.
     }
 }
