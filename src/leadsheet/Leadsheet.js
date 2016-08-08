@@ -35,14 +35,16 @@ class Leadsheet {
         [metadata, measures] = chart.split(":");
 
         /* Parse the metadata. */
-        metadata = new Leadsheet.Metadata(...metadata.split(","));
+        metadata = new Leadsheet.Metadata(...metadata.split(",")); // TODO: This is such a beautiful solution, but it doesn't change BPM to number... Metadata does that. Is that okay?
 
         /* Parse the measures */
-        measures.split("|").map(
-            measure => new Leadsheet.Measure(...measure.split(",")) // TODO Parse using teoria before passing... or change up responsibilites
+        measures = measures.split("|").map(
+            measure => new Leadsheet.Measure(...measure.split(",").map(
+                chord => teoria.chord(chord);
+            ))
         );
 
-        return new Leadsheet(metadata, [new Leadsheet.Measure()]);
+        return new Leadsheet(metadata, measures);
     }
 
     /**
