@@ -39,9 +39,9 @@ class Leadsheet {
         metadata = new Leadsheet.Metadata(...metadata.split(",")); // TODO: This is such a beautiful solution, but it doesn't change BPM to number... Metadata does that. Is that okay?
 
         /* Parse the measures */
-        measures = measures.split("|").map(
-            measure => new Leadsheet.Measure(measure.split(",").map(
-                chord => teoria.chord(chord)
+        measures = measures.split("|").map( // each measure
+            measure => new Leadsheet.Measure(measure.split(",").map( // each chord
+                chord => teoria.chord(chord) // turn chord into teoria Chord
             ))
         );
 
@@ -55,11 +55,11 @@ class Leadsheet {
      * @param {string} interval The interval to transpose.
      */
     transpose(interval) {
-
-    }
-
-    saveTo(storage) {
-        storage
+        for(let measure of this.measures) {
+            for(let chord of measure.chords) {
+                chord.transpose(teoria.interval(interval));
+            }
+        }
     }
 }
 
