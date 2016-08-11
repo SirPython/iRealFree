@@ -9,7 +9,7 @@ describe("Leadsheet", function() {
         giantSteps = Leadsheet.parse("Giant Steps,John Coltrane,swing,280:Bmaj7,D7|Gmaj7,Bb7|Ebmaj7|A-7,D7|Gmaj7,Bb7|Ebmaj7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|A-7,D7|Gmaj7|C#-7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|C#-7,F#7");
     });
 
-    describe("static #parse()", function() {
+    describe(".parse()", function() {
         // TODO: Be more specific
         it("should parse and store the metadata block", function() {
             assert.equal(giantSteps.metadata.title, "Giant Steps");
@@ -21,7 +21,8 @@ describe("Leadsheet", function() {
             assert.deepEqual(giantSteps.measures[2].chords[0], teoria.chord("Ebmaj7"));
         });
         it("should parse and store multi-chord measures", function() {
-            assert.deepEqual(giantSteps.measures[0].chords, [teoria.chord("Bbmaj7"), teoria.chord("D7")]);
+            assert.deepEqual(giantSteps.measures[0].chords[0], teoria.chord("Bmaj7"));
+            assert.deepEqual(giantSteps.measures[0].chords[1], teoria.chord("D7"));
         });
         it("should parse and store multiple measures", function() {
             assert(giantSteps.measures.length > 0);
@@ -41,11 +42,6 @@ describe("Leadsheet", function() {
         it("should transpose all the chords down", function() {
             clone.transpose("P-4");
             assert.deepEqual(clone.measures[0].chords[0], teoria.chord("F#maj7"));
-        });
-    });
-    describe("#save()", function() {
-        it("should store leadsheet metadata and chords in local storage", function() {
-            assert(false); // TODO
         });
     });
 });

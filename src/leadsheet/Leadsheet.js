@@ -1,3 +1,4 @@
+import teoria   from "teoria";
 import Metadata from "./Metadata";
 import Measure  from "./Measure";
 
@@ -39,8 +40,8 @@ class Leadsheet {
 
         /* Parse the measures */
         measures = measures.split("|").map(
-            measure => new Leadsheet.Measure(...measure.split(",").map(
-                chord => teoria.chord(chord);
+            measure => new Leadsheet.Measure(measure.split(",").map(
+                chord => teoria.chord(chord)
             ))
         );
 
@@ -55,6 +56,10 @@ class Leadsheet {
      */
     transpose(interval) {
 
+    }
+
+    saveTo(storage) {
+        storage
     }
 }
 
