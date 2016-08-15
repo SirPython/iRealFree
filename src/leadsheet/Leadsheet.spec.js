@@ -35,7 +35,9 @@ describe("Leadsheet", function() {
 
         it("should transpose all the chords up", function() {
             giantSteps.transpose("m2");
-            assert.deepEqual(giantSteps.measures[0].chords[0], teoria.chord("Cmaj7"));
+            // Just putting CMaj7 doesn't work because stupid.
+            //var cmaj7 = teoria.chord("Bmaj7").transpose("m2");
+            assert.deepEqual(giantSteps.measures[0].chords[0], teoria.chord("Bmaj7").transpose(teoria.interval("m2")));
         });
         it("should transpose all the chords down", function() {
             giantSteps.transpose("P-4");
