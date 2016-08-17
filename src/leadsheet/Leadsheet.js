@@ -2,16 +2,17 @@ import teoria   from "teoria";
 import Metadata from "./Metadata";
 import Measure  from "./Measure";
 
+
 /**
  * Represents a standard jazz leadsheet one might come upon. Includes things
  * such as the chords, the feel, etc.
  */
-class Leadsheet {
+export default class Leadsheet {
     /**
      * This should only be called by the static Leadsheet#parse() method.
      *
-     * @param {Leadsheet.Metadata} metadata The metadata of the chart.
-     * @param {Leadsheet.Chord[]} chords The measures of the chart.
+     * @param {Metadata} metadata The metadata of the chart.
+     * @param {Chord[]} chords The measures of the chart.
      */
     constructor(metadata, measures) {
         this.metadata = metadata;
@@ -36,11 +37,11 @@ class Leadsheet {
         [metadata, measures] = chart.split(":");
 
         /* Parse the metadata. */
-        metadata = new Leadsheet.Metadata(...metadata.split(",")); // TODO: This is such a beautiful solution, but it doesn't change BPM to number... Metadata does that. Is that okay?
+        metadata = new Metadata(...metadata.split(",")); // TODO: This is such a beautiful solution, but it doesn't change BPM to number... Metadata does that. Is that okay?
 
         /* Parse the measures */
         measures = measures.split("|").map( // each measure
-            measure => new Leadsheet.Measure(measure.split(",").map( // each chord
+            measure => new Measure(measure.split(",").map( // each chord
                 chord => teoria.chord(chord) // turn chord into teoria Chord
             ))
         );
@@ -62,8 +63,3 @@ class Leadsheet {
         }
     }
 }
-
-Leadsheet.Metadata = Metadata;
-Leadsheet.Measure  = Measure;
-
-export default Leadsheet;
