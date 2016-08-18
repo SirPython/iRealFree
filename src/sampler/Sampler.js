@@ -8,13 +8,14 @@
  */
 export default class Sampler {
     /**
-     * Makes a new Sampler.
+     * Makes a new Sampler. Creates an audio context in the meantime.
      *
      * @param {Object} samples Keys are the names of the instruments, values
      *                          are their respective Samples.
      */
     constructor(samples) {
         this.samples = samples;
+        this.ctx = new AudioContext() || new webkitAudioContext() || null;
     }
 
     /**

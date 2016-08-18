@@ -22,8 +22,11 @@ export default class Sample {
      * Loads a sample into an ArrayBuffer.
      *
      * @param {string} path The path to the sample.
+     * @param {AudioContext} ctx The audio context of a Sampler.
      */
-    static loadSample(path) {
-
+    static loadSample(path, ctx) {
+        return fetch(path).then(
+            ctx.decodeAudioData
+        });
     }
 }
