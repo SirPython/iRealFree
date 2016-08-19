@@ -5,6 +5,7 @@
  * sampler and adjusts pre-recorded sound samples (hence the name).
  *
  * // TODO: This doesn't work for drums. :(
+ * // TODO: (general todo) For methods/constructors that take things like an interval or a note, allow a string to be passed in that is parsed into the proper object (and vice versa example: sample constrctor);
  */
 export default class Sampler {
     /**

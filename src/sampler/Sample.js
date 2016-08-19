@@ -9,24 +9,23 @@ export default class Sample {
      * Creates a new Sample.
      *
      * @param {string} name The name of the instrument.
-     * @param {ArrayBuffer} sample An audio sample.
+     * @param {string|ArrayBuffer} sample A base64-encoded audio sample.
      * @param {teoria Note} note The note being played in the audio sample.
      */
     constructor(name, sample, note) {
-        this.name = name;
-        this.sample = sample;
+        this.name = name; // TODO: kinda pointless
+        this.sample = Sample._base64ToArrayBuffer(sample); // TODO: Is this transformation in the constructor okay?
         this.note = note;
     }
 
     /**
-     * Loads a sample into an ArrayBuffer.
+     * Utility method: Converts a base64 string into an ArrayBuffer.
      *
-     * @param {string} path The path to the sample.
-     * @param {AudioContext} ctx The audio context of a Sampler.
+     * @param {string} base64 A base64-encoded string.
+     *
+     * It's so beautiful.
      */
-    static loadSample(path, ctx) {
-        return fetch(path).then(
-            ctx.decodeAudioData
-        );
+    static _base64ToArrayBuffer(base64) {
+        return new TextEncoder("utf8").encode(atob(base64)).buffer;
     }
 }
