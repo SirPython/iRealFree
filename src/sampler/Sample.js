@@ -27,6 +27,6 @@ export default class Sample {
     static loadSample(path, ctx) {
         return fetch(path).then(
             ctx.decodeAudioData
-        });
+        );
     }
 }
