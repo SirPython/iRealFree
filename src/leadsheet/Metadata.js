@@ -7,14 +7,11 @@ export default class Metadata {
      * @param {string} composer The composer of the chart.
      * @param {string} feel The feel of the chart (swing, up, bossa, funk)
      * @param {string} bpm The BPM that the chart should be played.
-     *
-     * TODO: Add more metadata stuffs.
      */
     constructor(title, composer, feel, bpm) {
         this.title = title;
         this.composer = composer;
         this.feel = feel;
-        this.bpm = parseInt(bpm, 10); // TODO Does this follow SRP? Should parser
-                                      // do this?
+        this.bpm = parseInt(bpm, 10);
     }
 }

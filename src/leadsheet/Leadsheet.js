@@ -37,7 +37,7 @@ export default class Leadsheet {
         [metadata, measures] = chart.split(":");
 
         /* Parse the metadata. */
-        metadata = new Metadata(...metadata.split(",")); // TODO: This is such a beautiful solution, but it doesn't change BPM to number... Metadata does that. Is that okay?
+        metadata = new Metadata(...metadata.split(","));
 
         /* Parse the measures */
         measures = measures.split("|").map( // each measure

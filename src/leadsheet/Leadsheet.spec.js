@@ -10,7 +10,6 @@ describe("Leadsheet", function() {
     });
 
     describe(".parse()", function() {
-        // TODO: Be more specific
         it("should parse and store the metadata block", function() {
             assert.equal(giantSteps.metadata.title, "Giant Steps");
             assert.equal(giantSteps.metadata.composer, "John Coltrane");
