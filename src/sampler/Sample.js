@@ -1,26 +1,36 @@
 /**
+ * Utility method: Converts a base64 string into an ArrayBuffer.
+ *
+ * @param {string} base64 A base64-encoded string.
+ *
+ * It's so beautiful.
+ */
+const base64ToArrayBuffer = base64 =>
+    new TextEncoder("utf8").encode(atob(base64)).buffer;
+
+/**
  * Represents a single sample to be used in a sampler.
  */
 export default class Sample {
     /**
      * Creates a new Sample.
      *
-     * @param {string|ArrayBuffer} sample A base64-encoded audio sample.
+     * @param {string} sampleData A base64-encoded audio sample.
      * @param {teoria Note} note The note being played in the audio sample.
      */
-    constructor(name, sample, note) {
-        this.sample = Sample._base64ToArrayBuffer(sample);
+    constructor(sampleData, note) {
+        this.sample = sample;
         this.note = note;
+
+        this.audio = null; // loadAudioBuffer fills this.
     }
 
     /**
-     * Utility method: Converts a base64 string into an ArrayBuffer.
+     * Sets the audio property to a playable audio buffer.
      *
-     * @param {string} base64 A base64-encoded string.
-     *
-     * It's so beautiful.
+     * @param {AudioContext} ctx The audio context of the sampler.
      */
-    static _base64ToArrayBuffer(base64) {
-        return new TextEncoder("utf8").encode(atob(base64)).buffer;
+    loadAudio(ctx) {
+        this.audio = await ctx.decodeAudioData(base64ToArrayBuffer(this.sample));
     }
 }

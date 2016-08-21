@@ -1,10 +1,8 @@
 /**
  * A sampler.
  *
- * Similar to a synthesizer, but rather than sampling it's own sounds, the
+ * Similar to a synthesizer, but rather than making it's own sounds, the
  * sampler and adjusts pre-recorded sound samples (hence the name).
- *
- * 
  */
 export default class Sampler {
     /**
@@ -16,8 +14,12 @@ export default class Sampler {
     constructor(samples) {
         this.samples = samples;
         this.ctx = new AudioContext() || new webkitAudioContext() || null;
-
         this._runningSounds = {};
+
+        /* Load each samples audio buffer. */
+        this.samples.forEach(
+            sample => sample.loadAudio(this.ctx);
+        );
     }
 
     /**
@@ -33,10 +35,8 @@ export default class Sampler {
      * @returns {Symbol} The unique ID to the sound being played for stop()
      */
     play(note, instrument, duration) {
-        let sample = this.samples[instrument];
-
         let src = this.ctx.createBufferSource();
-        src.buffer = sample.sample;
+        src.buffer = this.samples[instrument].audio;
         src.loop = true;
 
         // TODO: modify playback speed here
