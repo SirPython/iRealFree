@@ -17,9 +17,10 @@ export default class Sampler {
         this._runningSounds = {};
 
         /* Load each samples audio buffer. */
-        this.samples.forEach(
-            sample => sample.loadAudio(this.ctx);
-        );
+
+        for(let sample in this.samples) {
+            this.samples[sample].loadAudio(this.ctx);
+        }
     }
 
     /**

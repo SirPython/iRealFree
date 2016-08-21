@@ -1,3 +1,5 @@
+import "regenerator-runtime/runtime";
+
 /**
  * Utility method: Converts a base64 string into an ArrayBuffer.
  *
@@ -19,7 +21,7 @@ export default class Sample {
      * @param {teoria Note} note The note being played in the audio sample.
      */
     constructor(sampleData, note) {
-        this.sample = sample;
+        this.sampleData = sampleData;
         this.note = note;
 
         this.audio = null; // loadAudioBuffer fills this.
@@ -30,7 +32,13 @@ export default class Sample {
      *
      * @param {AudioContext} ctx The audio context of the sampler.
      */
-    loadAudio(ctx) {
-        this.audio = await ctx.decodeAudioData(base64ToArrayBuffer(this.sample));
+    async loadAudio(ctx) {
+        debugger;
+        var buffer = base64ToArrayBuffer(this.sampleData);
+        debugger;
+        var audio  = await ctx.decodeAudioData(buffer);
+        this.audio = audio;
+
+        debugger;
     }
 }
