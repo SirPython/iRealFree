@@ -8,6 +8,8 @@
     "test:watch": "mocha src/**/*.spec.js -c --recursive --compilers js:babel-register --watch",
     "build": "babel src -d lib --ignore *.spec.js && browserify lib/index.js -o web/index.js",
     "build:watch": "parallelshell \"babel src -d lib --ignore *.spec.js --watch\" \"watchify lib/index.js -o web/index.js\"",
+    "start": "node scripts/start.js",
+    "start:watch": "parallelshell \"babel src -d lib --ignore *.spec.js --watch\" \"watchify lib/index.js -o web/index.js\" \"node scripts/start.js\"",
     "clean": "rm -rf web/* && rm -rf lib/*"
   },
   "repository": {
