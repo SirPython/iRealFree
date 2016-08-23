@@ -1,50 +1,43 @@
 import "regenerator-runtime/runtime";
 
 /**
- * Utility method: Converts a base64 string into an ArrayBuffer.
- *
- * @param {string} base64 A base64-encoded string.
- * @param {string} mime The mime type of the data in the base64 string.
- *
- * @returns {ArrayBuffer} An array buffer.
- *
- * It's so beautiful.
- */
-const base64ToArrayBuffer = (base64, mime) => {
-    //new TextEncoder("utf8").encode(atob(base64)).buffer;
-    let fr = new FileReader();
-    fr.readAsArrayBuffer(new Blob([atob(base64)], {type: mime}));
-    return new Promise(
-        resolve => fr.onloadend = () => resolve(fr.result)
-    );
-}
-
-/**
  * Represents a single sample to be used in a sampler.
  */
 export default class Sample {
     /**
      * Creates a new Sample.
      *
-     * @param {string} sampleData A base64-encoded audio sample.
+     * @param {string} href A href of the sample.
      * @param {teoria Note} note The note being played in the audio sample.
      */
-    constructor(sampleData, note) {
-        this.sampleData = sampleData;
+    constructor(href, note) {
+        this.href = href;
         this.note = note;
 
         this.audio = null; // loadAudioBuffer fills this.
     }
 
     /**
-     * Sets the audio property to a playable audio buffer.
+     * Loads the audio file into the audio property.
+     *
+     * Steps:
+     * 1. Fetch the audio file.
+     * 2. Turn it into an array buffer (this returns a promise - yay)
+     * 3. Decode the array buffer into an audio buffer (also a promise - yayx2)
+     *
+     * Promise galore.
      *
      * @param {AudioContext} ctx The audio context of the sampler.
      */
     async loadAudio(ctx) {
-        var buffer = await base64ToArrayBuffer(this.sampleData, "audio/x-wav");
-        debugger;
-        var audio  = await ctx.decodeAudioData(buffer);
-        this.audio = audio;
+        await new Promise(() => {
+            fetch(this.href).then(
+                response => response.arrayBuffer().then(
+                    buffer => ctx.decodeAudioData(buffer).then(
+                        audio => this.audio = audio
+                    )
+                )
+            )
+        });
     }
 }
