@@ -28,23 +28,37 @@ export default class Sampler {
     /**
      * Plays the note using the sample from that instrument.
      *
-     * @param {teoria Note} note The note to play.
+     * @param {teoria Note | teoria Note[]} notes The notes to play.
      * @param {string} instrument The instrument sample to use.
      * @param {number} [duration] The duration (ms) to play the note.
      *
      * If duration is left out, the unique ID returned can be passed into stop()
      * to have the note stop playing.
      *
+     * Passing an array of notes has this method call itself again for each
+     * note, and stop the method call that was originally started.
+     *
      * @returns {Symbol} The unique ID to the sound being played for stop()
      */
-    play(note, instrument, duration) {
-        let src = this.ctx.createBufferSource();
+    play(notes, instrument, duration) {
         let sample = this.samples[instrument];
-        src.buffer = sample.audio;
-        src.loop = true;
-        src.playbackRate.value = note.fq() / sample.note.fq();
+        let note = null;
 
+        /* This allows for both arrays and just a single note to be passed. */
+        if(Array.isArray(notes)) {
+            notes.forEach(
+                note => this.play(note, instrument, duration)
+            );
+            return;
+        }
+        note = notes; // for better reading
+
+        let src = this.ctx.createBufferSource();
+        src.buffer = sample.audio;
+        src.loop = true; // will remove eventually
+        src.playbackRate.value = note.fq() / sample.note.fq();
         src.connect(this.ctx.destination);
+
         if(duration) {
             src.start(0, 0, duration);
         } else {
