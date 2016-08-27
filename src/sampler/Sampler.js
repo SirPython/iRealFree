@@ -41,13 +41,15 @@ export default class Sampler {
      * @returns {Symbol} The unique ID to the sound being played for stop()
      */
     play(notes, instrument, duration) {
+        // TODO: Also allow for teoria Chords to be passed in.
+
         let sample = this.samples[instrument];
         let note = null;
 
         /* This allows for both arrays and just a single note to be passed. */
         if(Array.isArray(notes)) {
             notes.forEach(
-                note => this.play(note, instrument, duration)
+                note => this.play(note, instrument, duration) // TODO: This doesn't return the ID.
             );
             return;
         }
@@ -61,12 +63,16 @@ export default class Sampler {
 
         if(duration) {
             src.start(0, 0, duration);
+
+            return new Promise(resolve => { // TODO This doesn't let the sound stop before the end
+                setTimeout(resolve, duration);
+            });
         } else {
             src.start();
 
-            let symbol = Symbol(`${note} ${instrument} ${duration}`);
-            this._runningSounds[symbol] = src;
-            return symbol; // the unique id
+            let id = Symbol(`${note} ${instrument} ${duration}`);
+            this._runningSounds[id] = src;
+            return id;
         }
     }
 
