@@ -1,3 +1,5 @@
+const semitoneRatio = Math.pow(2, 1/12); // read more here: https://en.wikipedia.org/wiki/Twelfth_root_of_two
+
 /**
  * A sampler.
  *
@@ -37,10 +39,10 @@ export default class Sampler {
      */
     play(note, instrument, duration) {
         let src = this.ctx.createBufferSource();
-        src.buffer = this.samples[instrument].audio;
+        let sample = this.samples[instrument];
+        src.buffer = sample.audio;
         src.loop = true;
-
-        // TODO: modify playback speed here
+        src.playbackRate.value = note.fq() / sample.note.fq();
 
         src.connect(this.ctx.destination);
         if(duration) {

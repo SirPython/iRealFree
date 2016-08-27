@@ -18,9 +18,9 @@ window.Sample    = Sample;
 
 let giantSteps = Leadsheet.parse("Giant Steps,John Coltrane,swing,280:Bmaj7,D7|Gmaj7,Bb7|Ebmaj7|A-7,D7|Gmaj7,Bb7|Ebmaj7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|A-7,D7|Gmaj7|C#-7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|C#-7,F#7");
 let sampler = new Sampler({
-    piano: new Sample("samples/piano.wav", teoria.note("c4")), // TODO: Get better sample.
-    bass: new Sample("samples/piano.wav", teoria.note("c4")),
-    drums: new Sample("samples/piano.wav", teoria.note("c4"))
+    piano: new Sample("samples/sine.wav", teoria.note("c4")),
+    bass: new Sample("samples/sine.wav", teoria.note("c4")),
+    drums: new Sample("samples/sine.wav", teoria.note("c4"))
 });
 
 window.giantSteps = giantSteps;
