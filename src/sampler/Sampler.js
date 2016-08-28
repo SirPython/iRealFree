@@ -42,38 +42,58 @@ export default class Sampler {
      */
     play(notes, instrument, duration) {
         // TODO: Also allow for teoria Chords to be passed in.
-
         let sample = this.samples[instrument];
-        let note = null;
+
+        /* teoria Chords have a method called chordType(); this condition checks
+           to see if notes is in fact a chord, rather than an array of notes
+           or a single note. */
+        if(notes.chordType) {
+            notes = notes.notes();
+        }
+
+        /* A small utility function for setting up the buffer sources for each
+           note to be played. */
+        const setupSource = (note) => {
+            let src = this.ctx.createBufferSource();
+            src.buffer = sample.audio;
+            src.loop = true; // will remove eventually
+            src.playbackRate.value = note.fq() / sample.note.fq();
+            src.connect(this.ctx.destination);
+
+            return src;
+        }
 
         /* This allows for both arrays and just a single note to be passed. */
         if(Array.isArray(notes)) {
-            notes.forEach(
-                note => this.play(note, instrument, duration) // TODO: This doesn't return the ID.
-            );
-            return;
+            notes.map(setupSource);
+        } else {
+            // only one note, but easier to put in an array (less repeated code)
+            notes = [setupSource(notes)];
         }
-        note = notes; // for better reading
 
-        let src = this.ctx.createBufferSource();
-        src.buffer = sample.audio;
-        src.loop = true; // will remove eventually
-        src.playbackRate.value = note.fq() / sample.note.fq();
-        src.connect(this.ctx.destination);
+        let id = Symbol(`${note} ${instrument} ${duration}`);
+        this._runningSounds[id] = notes;
 
         if(duration) {
-            src.start(0, 0, duration);
+            notes.forEach(
+                note => note.start(0, 0, duration)
+            );
 
-            return new Promise(resolve => { // TODO This doesn't let the sound stop before the end
-                setTimeout(resolve, duration);
-            });
+            return new Promise(
+                resolve => setTimeout(() => {
+                    this.stop(id); // remove id from running sounds for GC
+                    resolve(); // callee is told when note has stopped
+                }, duration);
+            )
         } else {
-            src.start();
-
-            let id = Symbol(`${note} ${instrument} ${duration}`);
-            this._runningSounds[id] = src;
-            return id;
+            notes.forEach(
+                note => note.start()
+            );
         }
+
+        /* By also returning an id even when duration is passed in, the note
+           can be stopped before it is finished playing.*/
+        return id;
     }
 
     /**
@@ -88,7 +108,9 @@ export default class Sampler {
             throw new Error("ID not found in running sounds.");
         }
 
-        this._runningSounds[id].stop();
+        this._runningSounds[id].forEach(
+            sound => sound.stop()
+        );
         delete this._runningSounds[id];
     }
 }
