@@ -21,7 +21,8 @@ let ctx = new AudioContext();
 let samples = {
     piano: new Sample("samples/sine.wav", teoria.note("c4"), ctx),
     bass: new Sample("samples/sine.wav", teoria.note("c4"), ctx),
-    swing: new Sample("samples/swing.wav", 1, ctx)
+    swing: new Sample("samples/swing.wav", 1, ctx),
+    swing_fill: new Sample("samples/swing.wav", 1, ctx)
 };
 
 /*
