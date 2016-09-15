@@ -81,7 +81,6 @@ export default class Sample {
                 src.loop = true;
             } else {
                 src.playbackRate.value = note.fq() / this.note.fq();
-                src.loop = true; // TODO temporary while getting better samples.
             }
 
             src.connect(ctx.destination);

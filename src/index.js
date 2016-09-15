@@ -5,7 +5,8 @@ import teoria from "teoria";
 import Leadsheet from "./leadsheet/Leadsheet";
 import Metadata  from "./leadsheet/Metadata";
 import Measure   from "./leadsheet/Measure";
-
+import Metronome from "./metronome/Metronome";
+import Player    from "./player/Player";
 import Sample    from "./sampler/Sample";
 
 window.teoria    = teoria; //for browser-interaction purposes
@@ -14,22 +15,20 @@ window.Metadata  = Metadata;
 window.Measure   = Measure;
 window.Sample    = Sample;
 
-let giantSteps = Leadsheet.parse("Giant Steps,John Coltrane,swing,280:Bmaj7,D7|Gmaj7,Bb7|Ebmaj7|A-7,D7|Gmaj7,Bb7|Ebmaj7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|A-7,D7|Gmaj7|C#-7,F#7|Bmaj7|F-7,Bb7|Ebmaj7|C#-7,F#7");
+let blues = Leadsheet.parse("Blues,SirPython,swing,120,4/4,1:C7|F7|C7|C7|F7|F#o|C7|A7|D-7|G7|C7,A7|D-7,G7");
 
 let ctx = new AudioContext();
 
 let samples = {
-    piano: new Sample("samples/sine.wav", teoria.note("c4"), ctx),
-    bass: new Sample("samples/sine.wav", teoria.note("c4"), ctx),
+    piano: new Sample("samples/piano.wav", teoria.note("c4"), ctx),
+    bass: new Sample("samples/ebass.wav", teoria.note("a2"), ctx),
     swing: new Sample("samples/swing.wav", 1, ctx),
     swing_fill: new Sample("samples/swing.wav", 1, ctx)
-};
+}
 
-/*
-let mySample = new Sample(Sample.loadAudio(href, ctx), teoria.note("c4"));
-mySample.play(ctx, teoria.note("c5"), 5);
-*/
+let player = new Player(blues, samples);
 
-window.giantSteps = giantSteps;
+window.blues = blues;
 window.ctx = ctx;
 window.samples = samples;
+window.player = player;
