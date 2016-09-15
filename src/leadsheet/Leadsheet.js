@@ -2,7 +2,6 @@ import teoria   from "teoria";
 import Metadata from "./Metadata";
 import Measure  from "./Measure";
 
-
 /**
  * Represents a standard jazz leadsheet one might come upon. Includes things
  * such as the chords, the feel, etc.
