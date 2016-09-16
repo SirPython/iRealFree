@@ -4,7 +4,7 @@ import Sample from "./Sample";
  * Pattern samples are audio samples that represent a specific pattern of
  * notes being played, such as an ostinato or a drum beat.s
  */
-export default class PatternSample {
+export default class PatternSample extends Sample {
     /**
      * Creates a new Sample.
      *
@@ -14,11 +14,12 @@ export default class PatternSample {
      * @param {AudioContext} ctx The audio context.
      */
     constructor(href, length, bpm, ctx) {
+        super();
         this.length = length;
         this.bpm = bpm;
 
         this.audio = null; // _load will assign this
-        Sample.load(href, ctx, this);
+        super._load(href, ctx);
     }
 
     /**
@@ -32,7 +33,7 @@ export default class PatternSample {
         let src = ctx.createBufferSource(); // should this be refactored?
         src.buffer = this.audio;
         src.loop = true;
-        //src.playbackRate.value = bpm / this.bpm;
+        src.playbackRate.value = this.bpm / bpm;
         src.connect(ctx.destination);
         src.start(0, 0, duration);
     }

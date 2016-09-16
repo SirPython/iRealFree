@@ -7,7 +7,9 @@ import Metadata  from "./leadsheet/Metadata";
 import Measure   from "./leadsheet/Measure";
 import Metronome from "./metronome/Metronome";
 import Player    from "./player/Player";
-import Sample    from "./sampler/Sample";
+import Sample    from "./sample/Sample";
+import PatternSample from "./sample/PatternSample";
+import PitchedSample from "./sample/PitchedSample";
 
 window.teoria    = teoria; //for browser-interaction purposes
 window.Leadsheet = Leadsheet;
@@ -20,10 +22,10 @@ let blues = Leadsheet.parse("Blues,SirPython,swing,120,4/4,1:C7|F7|C7|C7|F7|F#o|
 let ctx = new AudioContext();
 
 let samples = {
-    piano: new Sample("samples/piano.wav", teoria.note("c4"), ctx),
-    bass: new Sample("samples/ebass.wav", teoria.note("a2"), ctx),
-    swing: new Sample("samples/swing.wav", 1, ctx),
-    swing_fill: new Sample("samples/swing.wav", 1, ctx)
+    piano: new PitchedSample("samples/piano.wav", teoria.note("c4"), ctx),
+    bass: new PitchedSample("samples/ebass.wav", teoria.note("a2"), ctx),
+    swing: new PatternSample("samples/swing.wav", 1, 120, ctx),
+    swing_fill: new PatternSample("samples/swing.wav", 1, 120, ctx)
 }
 
 let player = new Player(blues, samples);

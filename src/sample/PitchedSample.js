@@ -4,7 +4,7 @@ import Sample from "./Sample";
  * A sample that is a single pitch. This pitch will be changed and played
  * back based on the note requested to be played.
  */
-export default class PitchedSample {
+export default class PitchedSample extends Sample {
     /**
      * Creates a new Sample.
      *
@@ -13,10 +13,11 @@ export default class PitchedSample {
      * @param {AudioContext} ctx The audio context.
      */
     constructor(href, note, ctx) {
+        super();
         this.note = note;
 
         this.audio = null; // _load will assign this
-        Sample.load(href, ctx, this);
+        super._load(href, ctx);
     }
 
     /**

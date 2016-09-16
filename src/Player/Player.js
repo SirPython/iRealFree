@@ -20,18 +20,27 @@ export default class Player {
         const {metadata, measures} = this.leadsheet;
         const samples = this.samples;
 
-        console.log('start');
         new Metronome(metadata.meter, metadata.bpm).start(
             (time) => {
-                console.log("tick", time, time.mesaure, measures[time.measure]);
                 const chord = measures[time.measure].getChord(time.beat); // TODO: .getChord() should get the chord for that beat. If there is no chord for that beat, it should retreive the last chord.
 
-
-                samples.bass.play(chord.notes()[time.beat], metadata.bpm / 1000, ctx);
+                samples.bass.play(
+                    chord.notes()[time.beat],
+                    metadata.bpm / 1000,
+                    ctx
+                );
                 if(time.beat === 0) {
                     /* bpm * meter gets how long a whole note is. */
-                    samples.swing.play(null, metadata.bpm * metadata.meter / 1000, ctx);
-                    samples.piano.play(chord.notes(), metadata.bpm * metadata.meter / 1000, ctx);
+                    samples.piano.play(
+                        chord.notes(),
+                        metadata.bpm * metadata.meter / 1000,
+                        ctx
+                    );
+                    samples.swing.play(
+                        metadata.bpm * metadata.meter / 1000,
+                        metadata.bpm,
+                        ctx
+                    );
                 }
             }
         );

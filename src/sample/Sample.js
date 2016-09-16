@@ -1,6 +1,15 @@
 import "regenerator-runtime/runtime";
 
+/**
+ * Represents a single sample to be used in a sampler.
+ */
 export default class Sample {
+    /**
+     * Creates a new Sample.
+     */
+    constructor() {
+    }
+
     /**
      * Loads the audio file into the audio property.
      *
@@ -18,15 +27,22 @@ export default class Sample {
      * values (well, if you attempt it, they just return a promise). So, instead
      * this just assigned the value to the audio property.
      */
-    /*async load(href, ctx, that) {
+    async _load(href, ctx) {
         await new Promise(() => {
             fetch(href).then(
                 response => response.arrayBuffer().then(
                     buffer => ctx.decodeAudioData(buffer).then(
-                        audio => that.audio = audio
+                        audio => this.audio = audio
                     )
                 )
             )
         });
-    }*/
+    }
+
+    /**
+     * Plays this sample.
+     */
+    play() {
+
+    }
 }
