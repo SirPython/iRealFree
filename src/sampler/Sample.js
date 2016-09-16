@@ -6,17 +6,8 @@ import "regenerator-runtime/runtime";
 export default class Sample {
     /**
      * Creates a new Sample.
-     *
-     * @param {string} href The href of the sample.
-     * @param {teoria Note | number} note The note being played in the audio
-     *                                    sample. Or, the amount of measures
-     *                                    the sample lasts (for pattern samples).
      */
-    constructor(href, note, ctx) {
-        this.note = note;
-
-        this.audio = null; // _load will assign this
-        this._load(href, ctx);
+    constructor() {
     }
 
     /**
@@ -32,7 +23,7 @@ export default class Sample {
      * @param {string} href The href of the sample.
      * @param {AudioContext} ctx The audio context of the sampler.
      *
-     * This doesn't return anything because es7 async methods cannot return
+     * This doesn't return anything because ES7 async methods cannot return
      * values (well, if you attempt it, they just return a promise). So, instead
      * this just assigned the value to the audio property.
      */
@@ -50,41 +41,8 @@ export default class Sample {
 
     /**
      * Plays this sample.
-     *
-     * @param {teoria Note[]} note The notes to play.
-     * @param {number} duration How long to play the sample for.
-     * @param {AudioContext} ctx The audio context to play this on.
-     *
-     * For pattern samples, null the notes parameter.
-     *
-     * @TODO: The speed probably also needs to be adjusted for pattern samples;
-     * depending on the tempo, having the sample last for a certian amount
-     * of time doesn't stop it from being interrupted. Or, duration is computed
-     * based on the amount of measures <-- that.
      */
-    play(notes, duration, ctx) {
-        /* Hacky. Allows for notes to be nulled, which is what pattern samples
-           would use because there doesn't need to be any pitch adjustment. */
-        if(!notes) {
-            notes = [0];
-        }
-        /* Allows for a single note to be passed in, rather than an array. */
-        if(!Array.isArray(notes)) {
-            notes = [notes];
-        }
+    play() {
 
-        notes.forEach((note) => {
-            let src = ctx.createBufferSource();
-            src.buffer = this.audio;
-
-            if(typeof note === "number") {
-                src.loop = true;
-            } else {
-                src.playbackRate.value = note.fq() / this.note.fq();
-            }
-
-            src.connect(ctx.destination);
-            src.start(0, 0, duration);
-        });
     }
 }
