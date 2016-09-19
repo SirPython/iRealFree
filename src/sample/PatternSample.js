@@ -16,7 +16,7 @@ export default class PatternSample extends Sample {
     constructor(href, length, bpm, ctx) {
         super();
         this.length = length;
-        this.bps = 60 / bpm;
+        this.bps = 60 / bpm; // this can be computed using the length of the sample and the measures it supposedly lasts.
 
         this.audio = null; // _load will assign this
         super._load(href, ctx);

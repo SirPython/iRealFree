@@ -19,29 +19,42 @@ export default class Player {
     play() {
         const {metadata, measures} = this.leadsheet;
         const samples = this.samples;
+        let lastChord = measures[0].chords[0];
 
-        new Metronome(metadata.meter, metadata.bps).start(
+        const metronome = new Metronome(metadata.meter, metadata.bps);
+        metronome.start(
             (time) => {
-                const chord = measures[time.measure].getChord(time.beat); // TODO: .getChord() should get the chord for that beat. If there is no chord for that beat, it should retreive the last chord.
+                if(!measures[time.measure]) {
+                    metronome.stop();
+                    return;
+                }
+                const chord = measures[time.measure].getChord(time.beat);
 
                 samples.bass.play(
-                    chord.notes()[time.beat],
+                    chord.notes()[time.beat], // TODO should start at beginning of chord on chord change (for two chords in measure, it starts on 5 and 7 of second chord)
                     metadata.bps,
                     ctx
                 );
-                if(time.beat === 0) {
-                    /* bpm * meter gets how long a whole note is. */
+
+                /* If there was a chord change or a new mesaure started. */
+                if(lastChord.name !== chord.name || time.beat === 0) {
                     samples.piano.play(
                         chord.notes(),
                         metadata.bps * metadata.meter,
                         ctx
                     );
+                }
+
+                if(time.beat === 0) { // TODO doesn't support multi measure patterns
+                    /* bpm * meter gets how long a whole note is. */
                     samples.swing.play(
                         metadata.bps * metadata.meter,
                         metadata.bps,
                         ctx
                     );
                 }
+
+                lastChord = chord;
             }
         );
     }

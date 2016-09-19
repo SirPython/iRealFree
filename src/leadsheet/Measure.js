@@ -27,7 +27,6 @@ export default class Measure {
      * @returns {teoria Chord} The chord
      */
     getChord(beat) {
-        this.chords[0];//this.chords[beat] || the_last_explicit_chord
         for(; beat >= 0; beat--) {
             if(this.chords[beat]) {
                 return this.chords[beat];
