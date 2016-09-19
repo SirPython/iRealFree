@@ -16,7 +16,7 @@ export default class PatternSample extends Sample {
     constructor(href, length, bpm, ctx) {
         super();
         this.length = length;
-        this.bpm = bpm;
+        this.bps = 60 / bpm;
 
         this.audio = null; // _load will assign this
         super._load(href, ctx);
@@ -26,14 +26,14 @@ export default class PatternSample extends Sample {
      * Plays this sample.
      *
      * @param {number} duration How long to play the sample for.
-     * @param {number} bpm The BPM to play this at.
+     * @param {number} bps The BPS to play this at.
      * @param {AudioContext} ctx The audio context to play this on.
      */
-    play(duration, bpm, ctx) {
-        let src = ctx.createBufferSource(); // should this be refactored?
+    play(duration, bps, ctx) {
+        let src = ctx.createBufferSource(); // TODO should this be refactored?
         src.buffer = this.audio;
         src.loop = true;
-        src.playbackRate.value = this.bpm / bpm;
+        src.playbackRate.value = this.bps / bps;
         src.connect(ctx.destination);
         src.start(0, 0, duration);
     }

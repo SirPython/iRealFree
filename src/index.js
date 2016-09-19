@@ -17,7 +17,7 @@ window.Metadata  = Metadata;
 window.Measure   = Measure;
 window.Sample    = Sample;
 
-let blues = Leadsheet.parse("Blues,SirPython,swing,120,4/4,1:C7|F7|C7|C7|F7|F#o|C7|A7|D-7|G7|C7,A7|D-7,G7");
+let blues = Leadsheet.parse("Blues,SirPython,swing,50,4/4,1:C7|F7|C7|C7|F7|F#o7|C7|A7|D-7|G7|C7,A7|D-7,G7");
 
 let ctx = new AudioContext();
 

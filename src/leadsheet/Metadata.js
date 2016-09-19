@@ -14,7 +14,7 @@ export default class Metadata {
         this.title = title;
         this.composer = composer;
         this.feel = feel;
-        this.bpm = 60000 / +bpm; // converted to beats per ms
+        this.bps = 60 / +bpm; // converted to beats per second
         this.meter = +meter.charAt(0); // beats per measure; other part is irrelevant
         this.phrase = +phrase;
     }

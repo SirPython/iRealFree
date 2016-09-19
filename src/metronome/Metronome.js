@@ -3,11 +3,11 @@ export default class Metronome {
      * A metronome.
      *
      * @param {number} beats Beats per measure.
-     * @param {number} bpm   Beats per minute.
+     * @param {number} bps   Beats per second
      */
-    constructor(beats, bpm) {
+    constructor(beats, bps) {
     	this.beats = beats;
-        this.bpm = bpm;
+        this.bpms = bps * 1000;
 
         this.interval = null;
     }
@@ -29,7 +29,7 @@ export default class Metronome {
                 beat: ++beat % this.beats,
                 measure: Math.floor(beat / this.beats)
             });
-        }, this.bpm);
+        }, this.bpms);
     }
 
     /**
