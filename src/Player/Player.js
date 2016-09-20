@@ -24,14 +24,17 @@ export default class Player {
         const metronome = new Metronome(metadata.meter, metadata.bps);
         metronome.start(
             (time) => {
+                console.log('tick');
                 if(!measures[time.measure]) {
                     metronome.stop();
                     return;
                 }
                 const chord = measures[time.measure].getChord(time.beat);
 
+                const octave = (chord.root.octave() - samples.bass.note.octave() * 7) - 1;
                 samples.bass.play(
-                    chord.notes()[time.beat], // TODO should start at beginning of chord on chord change (for two chords in measure, it starts on 5 and 7 of second chord)
+                    // TODO should start at beginning of chord on chord change (for two chords in measure, it starts on 5 and 7 of second chord)
+                    chord.notes()[time.beat].transpose(teoria.interval("P" + octave)),
                     metadata.bps,
                     ctx
                 );
