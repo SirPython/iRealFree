@@ -2,7 +2,6 @@ import teoria   from "teoria";
 import Metadata from "./Metadata";
 import Measure  from "./Measure";
 
-
 /**
  * Represents a standard jazz leadsheet one might come upon. Includes things
  * such as the chords, the feel, etc.
@@ -42,7 +41,7 @@ export default class Leadsheet {
         /* Parse the measures */
         measures = measures.split("|").map( // each measure
             measure => new Measure(measure.split(",").map( // each chord
-                chord => teoria.chord(chord) // turn chord into teoria Chord
+                chord => chord === "" ? null : teoria.chord(chord) // turn chord into teoria Chord
             ))
         );
 

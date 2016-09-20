@@ -1,10 +1,10 @@
-# Project-specific ignores
+# Custom ignores
 
-# compiled JS
+# Compiled JavaScript
 lib/
 
-# packaged JS
-web/
+# Bundled JavaScript
+web/index.js
 
 # Created by https://www.gitignore.io/api/node
 

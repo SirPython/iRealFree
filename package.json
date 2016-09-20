@@ -8,6 +8,8 @@
     "test:watch": "mocha src/**/*.spec.js -c --recursive --compilers js:babel-register --watch",
     "build": "babel src -d lib --ignore *.spec.js && browserify lib/index.js -o web/index.js",
     "build:watch": "parallelshell \"babel src -d lib --ignore *.spec.js --watch\" \"watchify lib/index.js -o web/index.js\"",
+    "start": "http-server",
+    "start:watch": "parallelshell \"babel src -d lib --ignore *.spec.js --watch\" \"watchify lib/index.js -o web/index.js\" \"http-server\"",
     "clean": "rm -rf web/* && rm -rf lib/*"
   },
   "repository": {
@@ -22,9 +24,12 @@
   "homepage": "https://github.com/SirPython/iRealFree#readme",
   "devDependencies": {
     "babel-cli": "^6.11.4",
+    "babel-plugin-syntax-async-functions": "^6.13.0",
+    "babel-plugin-transform-regenerator": "^6.11.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-register": "^6.11.6",
     "browserify": "^13.1.0",
+    "http-server": "^0.9.0",
     "mocha": "^2.5.3",
     "parallelshell": "^2.0.0",
     "watchify": "^3.7.0"
